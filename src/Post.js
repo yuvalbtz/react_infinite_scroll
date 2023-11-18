@@ -9,7 +9,7 @@ const Post = React.forwardRef(({ post }, ref) => {
             <p>Post ID: {post.id}</p>
         </>
     )
-
+    
     const content = ref
         ? <article ref={ref}>{postBody}</article>
         : <article>{postBody}</article>

@@ -19,6 +19,7 @@ const Example2 = () => {
     })
 
     const intObserver = useRef()
+    
     const lastPostRef = useCallback(post => {
         if (isFetchingNextPage) return
 
@@ -26,13 +27,18 @@ const Example2 = () => {
 
         intObserver.current = new IntersectionObserver(posts => {
             if (posts[0].isIntersecting && hasNextPage) {
-                console.log('We are near the last post!')
+                console.log('We are near the last post')
                 fetchNextPage()
             }
         })
 
-        if (post) intObserver.current.observe(post)
-    }, [isFetchingNextPage, fetchNextPage, hasNextPage])
+        if (post) {
+            intObserver.current.observe(post)
+            console.log("activate obs");
+        }
+    }, [hasNextPage])
+
+    // [isFetchingNextPage, fetchNextPage] 
 
     if (status === 'error') return <p className='center'>Error: {error.message}</p>
 
@@ -50,6 +56,7 @@ const Example2 = () => {
             <h1 id="top">&infin; Infinite Query &amp; Scroll<br />&infin; Ex. 2 - React Query</h1>
             {content}
             {isFetchingNextPage && <p className="center">Loading More Posts...</p>}
+            {isFetchingNextPage && console.log("loading...")}
             <p className="center"><a href="#top">Back to Top</a></p>
         </>
     )
